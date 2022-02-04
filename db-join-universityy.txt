@@ -13,7 +13,7 @@
     ON `degrees`.`department_id` = `departments`.`id`
     WHERE `departments`.`name` = 'Dipartimento di Neuroscienze';
 
--- ottimizzato --
+    -- ottimizzato --
 
     SELECT `degrees`.`name` AS `degree_name`, `degrees`.`level` AS `degree_level`, `degrees`.`address` AS `degree_address`, `degrees`.`email` AS `degree_email`, `degrees`.`website` AS `degree_website`, `departments`.`name` AS `departments_name`, `departments`.`phone` AS `departments_phone`, `departments`.`head_of_department` AS `departments_name`
     FROM `degrees`
@@ -32,7 +32,7 @@
     WHERE `teachers`.`name` = 'Fulvio'
     AND `teachers`.`surname` = 'Amato';
 
--- ottimizzato --
+    -- ottimizzato --
 
     SELECT `courses`.`name` AS `courses_name`, `courses`.`description` AS `courses_description`, `courses`.`year`, `courses`.`cfu`, `teachers`.`name` AS `teachers_name`, `teachers`.`surname` AS `teachers_surname`
     FROM `course_teacher`
@@ -46,10 +46,27 @@
 
 4. Selezionare tutti gli studenti con i dati relativi al corso di laurea a cui sono iscritti e il
 relativo dipartimento, in ordine alfabetico per cognome e nome
+    SELECT *
+    FROM `students`
+    JOIN `degrees`
+    ON `students`.`degree_id` = `degrees`.`id`
+    JOIN `departments`
+    ON `degrees`.`department_id` = `departments`.`id`
+    ORDER BY `students`.`surname`;
+    ----------------------- ordinato per cognome, devo farlo anche per il nome ------------------------
 
 
 5. Selezionare tutti i corsi di laurea con i relativi corsi e insegnanti
-
+    SELECT `degrees`.`name` AS `degree_name`, `degrees`.`level`, `courses`.`name` AS `courses_name`, `courses`.`description` AS `courses_description`, `teachers`.`name` AS `teachers_name`, `teachers`.`surname` AS `teachers_surname`, `teachers`.`phone` AS `teachers_phone`
+    FROM `course_teacher`
+    JOIN `courses`
+    ON `course_teacher`.`course_id` = `courses`.`id`
+    JOIN `teachers`
+    ON `course_teacher`.`teacher_id` = `teachers`.`id`
+    JOIN `degrees`
+    ON `courses`.`degree_id` = `degrees`.`id`
+    ORDER BY `degree_name`;
+    
 
 6. Selezionare tutti i docenti che insegnano nel Dipartimento di Matematica (54)
 
