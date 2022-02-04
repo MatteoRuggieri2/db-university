@@ -10,6 +10,9 @@ FROM `teachers`
 GROUP BY `office_address`
 HAVING `teachers_number` > 1;
 
+-- oppure --
+SOMMA ANCHE TUTTI GLI INSEGNANTI
+
 
 3. Calcolare la media dei voti di ogni appello d'esame
 SELECT AVG(`vote`) AS `vote_average`, `exam_id`
